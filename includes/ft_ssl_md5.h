@@ -20,9 +20,14 @@ typedef struct {
     bool echo_mode;
     bool quiet_mode;
     bool reverse_format;
-    bool print_sum;
+    bool print_mode;
+    bool read_stdin;
 
-    char *str;
+    char *arr[128];
+    FILE* stream;
 } hashing_data;
+
+bool    ft_ssl_md5(hashing_data *data); // main function for hashing string into md5
+void    get_arr_debug(char **arr);
 
 #endif

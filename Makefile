@@ -2,7 +2,7 @@ NAME = ft_ssl
 SRC =   srcs/main.c \
         srcs/ft_ssl_md5.c
 
-OBJ = $(SRC:.cpp=.o)
+OBJ = $(SRC:.c=.o)
 CXX = cc
 CXXFLAGS = -Wall -Wextra -Werror -g
 
