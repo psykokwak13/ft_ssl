@@ -8,8 +8,15 @@
 #include <stdbool.h>
 #include <string.h>
 #include <fcntl.h>
+#include <math.h>
+#include <stdint.h>
+#include "../srcs/libft-complete/libft/libft.h"
 
 #define eprintf(...) fprintf (stderr, __VA_ARGS__)
+
+typedef struct {
+    uint32_t a, b, c, d;
+} md5_context;
 
 typedef enum {
     MD5_HASH,

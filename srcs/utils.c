@@ -4,7 +4,7 @@
 // -> on init source avec SRC_STDIN et on laisse value a NULL
 char    *handle_srcfile(t_source *source) { // beta version, have to handle file > 1024 bits
     int     fd;
-    char    buffer[1024];
+    char    buffer[1025];
     if (source->type != SRC_FILE) {
         printf("'%s' don't contain SRC_FILE\n", source->value);
         return (NULL);
@@ -21,6 +21,9 @@ char    *handle_srcfile(t_source *source) { // beta version, have to handle file
         printf("%s : can't read file", source->value);
         return (NULL);
     }
+
+    buffer[byte_read] = '\0';
+
     return (strdup(buffer));
 }
 

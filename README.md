@@ -12,9 +12,15 @@ Ordre de priorité pour l'affichage d'une source donnée (stdin / -s / fichier) 
 
 ATTENTION !!!! : ON DOIT RETIRER LES PRINTF -> PAS AUTORISE PAR LE SUJET
                  -> on importe ft_printf
+REVOIR : - beta_version pour handle_file et handle_stdin
+         - algorithme md5 / manip bit etc
 
+FAIRE : - output pour stdin
+        - beta_version
+        - ALGO SHA256
 src :
 https://fr.wikipedia.org/wiki/MD5
 https://www.okta.com/fr-fr/identity-101/md5/
 https://datatracker.ietf.org/doc/html/rfc1321
 
+sha-256 :

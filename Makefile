@@ -17,7 +17,7 @@ MAKEFLAGS += --silent -j
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CXX) $(CXXFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft-complete -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJ) -L$(LIBFT_DIR) -lm -lft-complete -o $(NAME)
 	echo "build done."
 
 $(LIBFT):
