@@ -10,10 +10,12 @@ Ordre de priorité pour l'affichage d'une source donnée (stdin / -s / fichier) 
 
 
 
-ATTENTION !!!! : ON DOIT RETIRER LES PRINTF -> PAS AUTORISE PAR LE SUJET
+ATTENTION !!!! : ON DOIT RETIRER LES FONCTIONS INTERDITES -> PAS AUTORISE PAR LE SUJET
                  -> on importe ft_printf
+                 -> on refait les fonctions mathematiques manuellement
 REVOIR : - beta_version pour handle_file et handle_stdin
          - algorithme md5 / manip bit etc
+         - free pas fait dans le return de md5/sha256
 
 FAIRE : - output pour stdin
         - beta_version

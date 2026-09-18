@@ -5,23 +5,6 @@
 #define G(X, Y, Z) (((X) & (Z)) | (Y & (~(Z))))
 #define H(X, Y, Z) ((X) ^ (Y) ^ (Z))
 #define I(X, Y, Z) ((Y) ^ ((X) | (~(Z))))
-#define TO_I32(x,i) (((uint32_t)(x)[i]) | ((uint32_t)(x)[i+1]<<8) | ((uint32_t)(x)[i+2]<<16) | ((uint32_t)(x)[i+3]<<24))
-
-uint32_t rotl(uint32_t x, int s) {
-    return (x << s) | (x >> (32 - s));
-}
-
-uint32_t *get_words(unsigned char *message, int nb_bloc) {
-    uint32_t    *words = malloc(sizeof(uint32_t) * 16);
-    int         x = 0;
-
-    for (int i = 0; i < 64; i += 4) {
-        words[x] = TO_I32(message, i + nb_bloc);
-        x++;
-    }
-
-    return (words);
-}
 
 char *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3) // !!! printf
 {
@@ -49,7 +32,7 @@ char *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3) // !!! prin
 char    *ft_ssl_md5(char *str) {
     size_t          len;
     char            result[32]; // 0 to f | concatener a, b, c et d
-    unsigned char   *message = md5_sha256_pad(str, strlen(str), &len);
+    unsigned char   *message = md5_sha256_pad(str, strlen(str), &len, MD5_HASH);
 
     if (!message) return (NULL);
 
@@ -72,7 +55,7 @@ char    *ft_ssl_md5(char *str) {
     // faire la division des blocs 512 en 16 blocs de 32
 
     for (int nb_bloc = 0; nb_bloc < len; nb_bloc += 64) { // parcourir les blocs
-        uint32_t    *value = get_words(message, nb_bloc);
+        uint32_t    *w = get_words(message, nb_bloc, MD5_HASH);
         md5_context haching_var = {h0, h1, h2, h3};
         uint32_t    f;
         int         g;
@@ -99,7 +82,7 @@ char    *ft_ssl_md5(char *str) {
 
             haching_var.d = haching_var.c;
             haching_var.c = haching_var.b;
-            haching_var.b = rotl((haching_var.a + f + k[i] + value[g]), r[i]) + haching_var.b;
+            haching_var.b = rotl((haching_var.a + f + k[i] + w[g]), r[i]) + haching_var.b;
             haching_var.a = temp;
         }
 
@@ -108,7 +91,7 @@ char    *ft_ssl_md5(char *str) {
         h2 += haching_var.c;
         h3 += haching_var.d;
 
-        free(value);
+        free(w);
     }
 
     free(message);

@@ -1,28 +1,5 @@
 #include "../includes/ft_ssl.h"
 
-unsigned char *md5_sha256_pad(const char *msg, size_t len, size_t *out_len) // a revoir
-{
-    size_t          total;
-    uint64_t        bits;
-    unsigned char   *buf;
-
-    total = ((len + 8) / 64 + 1) * 64;
-
-    buf = calloc(total, 1);
-    if (!buf)
-        return (NULL);
-
-    memcpy(buf, msg, len);
-    buf[len] = 0x80;
-    bits = (uint64_t)len * 8;
-
-    for (int i = 0; i < 8; i++)
-        buf[total - 8 + i] = (unsigned char)(bits >> (8 * i));
-    *out_len = total;
-
-    return (buf);
-}
-
 static void output_src_file(hashing_data *data, t_source *node) {
     char    *content = handle_srcfile(node);
 
@@ -89,16 +66,3 @@ void    ft_ssl(hashing_data *data) {
         }
     }
 }
-
-
-/*
-    if (data->quiet_mode) { // all in quiet_mode
-        // manage before all stdin input (-p option or no arg)
-    }
-    else if (data->reverse_format) { // all in reverse_format if no quiet_mode
-        // manage before all stdin input (-p option or no arg)
-    }
-    else { // normal output
-        // manage before all stdin input (-p option or no arg)
-    }
- */

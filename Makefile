@@ -4,7 +4,8 @@ SRC =   srcs/main.c \
         srcs/ft_ssl_sha256.c \
         srcs/utils.c \
         srcs/ft_ssl.c \
-        srcs/print_debug.c
+        srcs/print_debug.c \
+        srcs/algorithm_utils.c
 
 OBJ         = $(SRC:.c=.o)
 CXX         = cc
@@ -21,7 +22,7 @@ $(NAME): $(LIBFT) $(OBJ)
 	echo "build done."
 
 $(LIBFT):
-	make -j --silent -C $(LIBFT_DIR)
+	make -j -s -C $(LIBFT_DIR)
 
 clean:
 	@rm -f $(OBJ) && make -j -s -C $(LIBFT_DIR) clean
