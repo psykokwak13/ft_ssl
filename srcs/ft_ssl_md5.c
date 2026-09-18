@@ -1,5 +1,6 @@
 #include "../includes/ft_ssl.h"
 
+// revoir
 #define F(X, Y, Z) (((X) & (Y)) | ((~(X)) & (Z)))
 #define G(X, Y, Z) (((X) & (Z)) | (Y & (~(Z))))
 #define H(X, Y, Z) ((X) ^ (Y) ^ (Z))
@@ -20,29 +21,6 @@ uint32_t *get_words(unsigned char *message, int nb_bloc) {
     }
 
     return (words);
-}
-
-unsigned char *md5_pad(const char *msg, size_t len, size_t *out_len) // a revoir
-{
-    size_t          total;
-    uint64_t        bits;
-    unsigned char   *buf;
-
-    total = ((len + 8) / 64 + 1) * 64;
-
-    buf = calloc(total, 1);
-    if (!buf)
-        return (NULL);
-
-    memcpy(buf, msg, len);
-    buf[len] = 0x80;
-    bits = (uint64_t)len * 8;
-
-    for (int i = 0; i < 8; i++)
-        buf[total - 8 + i] = (unsigned char)(bits >> (8 * i));
-    *out_len = total;
-
-    return (buf);
 }
 
 char *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3) // !!! printf
@@ -71,7 +49,7 @@ char *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3) // !!! prin
 char    *ft_ssl_md5(char *str) {
     size_t          len;
     char            result[32]; // 0 to f | concatener a, b, c et d
-    unsigned char   *message = md5_pad(str, strlen(str), &len);
+    unsigned char   *message = md5_sha256_pad(str, strlen(str), &len);
 
     if (!message) return (NULL);
 

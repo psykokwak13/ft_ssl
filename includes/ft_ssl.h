@@ -50,6 +50,7 @@ void    ft_ssl(hashing_data *data); // handle output option and redirect to md5 
 char    *ft_ssl_md5(char *str); // main function for hashing string into md5
 char    *ft_ssl_sha256(char *data);
 void    get_arr_debug(char **arr);
+unsigned char *md5_sha256_pad(const char *msg, size_t len, size_t *out_len);
 
 // utils
 void    get_arr_debug(char **arr);

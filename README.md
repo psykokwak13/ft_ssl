@@ -18,6 +18,9 @@ REVOIR : - beta_version pour handle_file et handle_stdin
 FAIRE : - output pour stdin
         - beta_version
         - ALGO SHA256
+
+
+
 src :
 https://fr.wikipedia.org/wiki/MD5
 https://www.okta.com/fr-fr/identity-101/md5/
