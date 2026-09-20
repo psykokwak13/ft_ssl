@@ -4,26 +4,29 @@
 #define MAJ(A, B, C) (((A) & (B)) ^ ((A) & (C)) ^ ((B) & (C)))
 #define SHR(x, s) ((x) >> (s))
 
-char *sha256_to_hex(sha256_context value) // !!! printf
+char *sha256_to_hex(sha256_context value)
 {
-    uint32_t    regs[8] = {value.a, value.b, value.c, value.d, value.e, value.f, value.g, value.h};
-    char        *result;
-    int         pos = 0;
+    uint32_t        regs[8] = {value.a, value.b, value.c, value.d,
+                                value.e, value.f, value.g, value.h};
+    char            *result;
+    int             pos;
+    static const char hex[] = "0123456789abcdef";
 
     result = malloc(65);
     if (!result)
         return (NULL);
 
-    for (int r = 0; r < 4; r++)
+    pos = 0;
+    for (int r = 0; r < 8; r++)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 3; i >= 0; i--)
         {
             unsigned char byte = (regs[r] >> (8 * i)) & 0xFF;
-            sprintf(result + pos, "%02x", byte);
-            pos += 2;
+            result[pos++] = hex[(byte >> 4) & 0xF];
+            result[pos++] = hex[byte & 0xF];
         }
     }
-    result[32] = '\0';
+    result[pos] = '\0'; // pos vaut 64 ici : 8 registres * 4 octets * 2 caractères
     return (result);
 }
 
