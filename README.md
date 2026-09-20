@@ -19,7 +19,6 @@ REVOIR : - beta_version pour handle_file et handle_stdin
 
 FAIRE : - output pour stdin
         - beta_version
-        - ALGO SHA256
 
 
 

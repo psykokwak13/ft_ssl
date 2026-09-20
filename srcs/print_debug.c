@@ -29,7 +29,7 @@ static void    print_source(t_source *source) {
 }
 
 void    print_data_statut(hashing_data data) {
-    printf("HASHING DATA STATUS :\n \
+    printf("HASHING DATA STATUS :\n\
             hashingtype (0 = md5 / 1 = sha256) : %d\n\
             echo_mode : %d\n\
             quiet_mode : %d\n\

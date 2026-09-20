@@ -1,10 +1,10 @@
 #include "../includes/ft_ssl.h"
 
-// ATTENTION AU CAS D'ERREUR -> NE DOIT PAS COUPER LE PROGRAMME : AFFICHE JUSTE ET PASSE A LA SUITE COMME SRC_FILE/SRC_STRING
-// -> on init source avec SRC_STDIN et on laisse value a NULL
-char    *handle_srcfile(t_source *source) { // beta version, have to handle file > 1024 bits
+char    *handle_srcfile(t_source *source) { // a tester
     int     fd;
-    char    buffer[1025];
+    char    buffer[1024];
+    char    *temp;
+
     if (source->type != SRC_FILE) {
         printf("'%s' don't contain SRC_FILE\n", source->value);
         return (NULL);
@@ -15,29 +15,49 @@ char    *handle_srcfile(t_source *source) { // beta version, have to handle file
         return (NULL);
     }
 
-    ssize_t byte_read = read(fd, &buffer, 1024);
+    ssize_t byte_read = 1;
+    char *result = ft_strdup("");
+
+    while (byte_read > 0) {
+        byte_read = read(fd, &buffer, 1023);
+        temp = result;
+        buffer[byte_read] = '\0';
+        result = ft_strjoin(result, buffer);
+        free(temp);
+    }
 
     if (byte_read == -1) {
+        close(fd);
+        free(result);
         printf("%s : can't read file", source->value);
         return (NULL);
     }
 
-    buffer[byte_read] = '\0';
+    close(fd);
 
-    return (strdup(buffer));
+    return (result);
 }
 
-bool    handle_stdin(hashing_data *data) { // beta version, have to handle stdin > 1024 bits
+bool    handle_stdin(hashing_data *data) { // a tester
     char    buffer[1024];
-    ssize_t bytes_read = read(0, &buffer, 1024);
+    ssize_t bytes_read = 1;
+    char    *result = ft_strdup("");
+    char    *temp = NULL;
+
+    while (bytes_read > 0) {
+        bytes_read = read(0, &buffer, 1024);
+        buffer[bytes_read] = '\0';
+        temp = result;
+        result = ft_strjoin(result, buffer);
+        free(temp);
+    }
 
     if (bytes_read == -1) {
         eprintf("Error : can't read stdin\n");
         return (false);
     }
 
-    buffer[bytes_read] = '\0';
-    add_source(data, SRC_STDIN, strdup(buffer));
+    add_source(data, SRC_STDIN, result);
 
     return (true);
 }

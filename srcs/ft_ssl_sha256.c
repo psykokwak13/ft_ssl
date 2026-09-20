@@ -26,14 +26,17 @@ char *sha256_to_hex(sha256_context value)
             result[pos++] = hex[byte & 0xF];
         }
     }
-    result[pos] = '\0'; // pos vaut 64 ici : 8 registres * 4 octets * 2 caractères
+    result[pos] = '\0';
     return (result);
 }
 
 char    *ft_ssl_sha256(char *str) {
     size_t          len;
     unsigned char   *message = md5_sha256_pad(str, strlen(str), &len, SHA256_HASH);
-    sha256_context  initial_value = {0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, };
+    sha256_context  initial_value = {
+        0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+        0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+    };
     static const    uint32_t k[64] = {
         0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
         0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
@@ -89,4 +92,8 @@ char    *ft_ssl_sha256(char *str) {
 
         free(w);
     }
+
+    free(message);
+
+    return (sha256_to_hex(initial_value));
 }
