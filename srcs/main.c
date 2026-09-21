@@ -16,7 +16,7 @@ bool    get_flags(char **arr, int size, hashing_data *data) {
 
     for (; arr[i] && arr[i][0] == '-'; i++) {
         if (arr[i][0] != '-') break ;
-        if (strlen(arr[i]) != 2) {
+        if (ft_strlen(arr[i]) != 2) {
             eprintf("invalid command '%s'\n", arr[i]);
             return (false) ;
         }
@@ -49,11 +49,11 @@ bool    get_flags(char **arr, int size, hashing_data *data) {
             eprintf("error : '-s' command without string\n");
             return (false);
         }
-        add_source(data, SRC_STRING, strdup(arr[i++]));
+        add_source(data, SRC_STRING, ft_strdup(arr[i++]));
     }
 
     for (; arr[i] ;i++)
-        add_source(data, SRC_FILE, strdup(arr[i]));
+        add_source(data, SRC_FILE, ft_strdup(arr[i]));
 
     return (true);
 }

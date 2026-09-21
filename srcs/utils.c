@@ -9,7 +9,7 @@ char    *get_hashing_type(hashing_type type) {
     };
 }
 
-char    *handle_srcfile(t_source *source) { // a tester
+char    *handle_srcfile(t_source *source) {
     int     fd;
     char    buffer[1024];
     char    *temp;
@@ -35,14 +35,13 @@ char    *handle_srcfile(t_source *source) { // a tester
         free(temp);
     }
 
+    close(fd);
+
     if (byte_read == -1) {
-        close(fd);
         free(result);
         eprintf("%s : can't read file\n", source->value);
         return (NULL);
     }
-
-    close(fd);
 
     if (!ft_strcmp(result, "")) {
         eprintf("%s : empty file\n", source->value);

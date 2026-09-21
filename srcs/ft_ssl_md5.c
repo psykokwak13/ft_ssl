@@ -1,12 +1,11 @@
 #include "../includes/ft_ssl.h"
 
-// revoir
 #define F(X, Y, Z) (((X) & (Y)) | ((~(X)) & (Z)))
 #define G(X, Y, Z) (((X) & (Z)) | (Y & (~(Z))))
 #define H(X, Y, Z) ((X) ^ (Y) ^ (Z))
 #define I(X, Y, Z) ((Y) ^ ((X) | (~(Z))))
 
-char *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3) // !!! printf
+char    *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3)
 {
     uint32_t    regs[4] = {h0, h1, h2, h3};
     char        *result;
@@ -31,8 +30,7 @@ char *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3) // !!! prin
 
 char    *ft_ssl_md5(char *str) {
     size_t          len;
-    char            result[32]; // 0 to f | concatener a, b, c et d
-    unsigned char   *message = md5_sha256_pad(str, strlen(str), &len, MD5_HASH);
+    unsigned char   *message = md5_sha256_pad(str, ft_strlen(str), &len, MD5_HASH);
 
     if (!message) return (NULL);
 

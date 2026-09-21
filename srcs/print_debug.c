@@ -1,6 +1,6 @@
 #include "../includes/ft_ssl.h"
 
-void    get_arr_debug(char **arr) { // have to be deleted at the end !!
+void    get_arr_debug(char **arr) {
     for (int i = 0; arr[i]; i++) {
         printf("[%s]", arr[i]);
     }
