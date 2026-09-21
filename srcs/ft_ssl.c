@@ -34,8 +34,11 @@ static void output_src_stdin(hashing_data *data, t_source *type) {
 
     output = get_algorithm_result(data->type, type->value);
 
-    if (data->quiet_mode)
+    if (data->quiet_mode) {
+        if (data->echo_mode)
+            printf("%s\n", type->value);
         ft_printf("%s\n", output);
+    }
     else {
         if (data->echo_mode) ft_printf("%s (\"%s\") = %s\n", get_hashing_type(data->type), type->value, output);
         else ft_printf("%s (stdin) = %s\n", get_hashing_type(data->type), output);
