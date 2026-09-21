@@ -70,6 +70,7 @@ void            print_data_statut(hashing_data data);
 void            add_source(hashing_data *data, t_src_type type, char *str);
 void            free_source(t_source *source);
 bool            handle_stdin(hashing_data *data);
-char            *handle_srcfile(t_source *source); // beta version, have to handle file > 1024 bits
+char            *handle_srcfile(t_source *source);
+char            *get_hashing_type(hashing_type type);
 
 #endif

@@ -30,13 +30,13 @@ static void    print_source(t_source *source) {
 
 void    print_data_statut(hashing_data data) {
     printf("HASHING DATA STATUS :\n\
-            hashingtype (0 = md5 / 1 = sha256) : %d\n\
+            hashingtype : %s\n\
             echo_mode : %d\n\
             quiet_mode : %d\n\
             reverse_format : %d\n\
             print_mode : %d\n\
             source : \n",
-         data.type, data.echo_mode, data.quiet_mode, data.reverse_format,
+         get_hashing_type(data.type), data.echo_mode, data.quiet_mode, data.reverse_format,
          data.print_mode);
     print_source(data.source);
 }

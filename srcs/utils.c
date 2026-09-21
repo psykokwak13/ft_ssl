@@ -1,5 +1,14 @@
 #include "../includes/ft_ssl.h"
 
+char    *get_hashing_type(hashing_type type) {
+    switch (type) {
+        case MD5_HASH :
+            return ("MD5");
+        case SHA256_HASH :
+            return ("SHA256");
+    };
+}
+
 char    *handle_srcfile(t_source *source) { // a tester
     int     fd;
     char    buffer[1024];

@@ -14,13 +14,13 @@ uint32_t    *get_words(unsigned char *message, int nb_bloc, hashing_type type) {
 
     if (type == MD5_HASH)
         words = malloc(sizeof(uint32_t) * 16);
-    else
+    else if (type == SHA256_HASH)
         words = malloc(sizeof(uint32_t) * 64);
 
     for (int i = 0; i < 64; i += 4) {
         if (type == MD5_HASH)
             words[x] = TO_I32_LITTLE_ENDIAN(message, i + nb_bloc);
-        else
+        else if (type == SHA256_HASH)
             words[x] = TO_I32_BIG_ENDIAN(message, i + nb_bloc);
         x++;
     }
@@ -46,7 +46,7 @@ unsigned char   *md5_sha256_pad(const char *msg, size_t len, size_t *out_len, ha
     for (int i = 0; i < 8; i++) {
         if (type == MD5_HASH)
             buf[total - 8 + i] = (unsigned char)(bits >> (8 * i));
-        else
+        else if (type == SHA256_HASH)
             buf[total - 8 + i] = (unsigned char)(bits >> (8 *(7 - i)));
     }
     *out_len = total;
