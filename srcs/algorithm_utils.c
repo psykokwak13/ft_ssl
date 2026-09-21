@@ -35,11 +35,11 @@ unsigned char   *md5_sha256_pad(const char *msg, size_t len, size_t *out_len, ha
 
     total = ((len + 8) / 64 + 1) * 64;
 
-    buf = calloc(total, 1);
+    buf = ft_calloc(total, 1);
     if (!buf)
         return (NULL);
 
-    memcpy(buf, msg, len);
+    ft_memcpy(buf, msg, len);
     buf[len] = 0x80;
     bits = (uint64_t)len * 8;
 

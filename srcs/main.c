@@ -5,8 +5,8 @@
 bool    get_flags(char **arr, int size, hashing_data *data) {
     size_t  i = 1;
 
-    if (!strcmp(arr[i], "md5")) data->type = MD5_HASH;
-    else if (!strcmp(arr[i], "sha256")) data->type = SHA256_HASH;
+    if (!ft_strcmp(arr[i], "md5")) data->type = MD5_HASH;
+    else if (!ft_strcmp(arr[i], "sha256")) data->type = SHA256_HASH;
     else {
         print_data_statut(*data);
         eprintf("usage : ft_ssl command [flags] [file/string]\n");
@@ -74,8 +74,8 @@ int main(int argc, char **argv) {
 
     ft_ssl(&data);
 
-    printf("\n-----------\n");
-    print_data_statut(data);
+    // printf("\n-----------\n");
+    // print_data_statut(data);
 
     free_source(data.source);
 

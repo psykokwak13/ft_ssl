@@ -41,18 +41,14 @@ char    *ft_ssl_md5(char *str) {
     uint32_t     h2 = 0x98badcfe;
     uint32_t     h3 = 0x10325476;
     uint32_t     k[64];
-
-    for (int i = 0; i < 64; i++) {
-        k[i] = (uint32_t)(fabs(sin(i + 1.0)) * 4294967296.0);
-    }
-
     int r[64] = {7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22, 
                  5, 9, 14, 20,  5, 9, 14, 20,  5, 9, 14, 20,  5, 9, 14, 20,
                  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,
                  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21};
 
-    // faire la boucle principale
-    // faire la division des blocs 512 en 16 blocs de 32
+    for (int i = 0; i < 64; i++) {
+        k[i] = (uint32_t)(fabs(sin(i + 1.0)) * 4294967296.0);
+    }
 
     for (int nb_bloc = 0; nb_bloc < len; nb_bloc += 64) { // parcourir les blocs
         uint32_t    *w = get_words(message, nb_bloc, MD5_HASH);

@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdint.h>
 #include "../srcs/libft-complete/libft/libft.h"
+#include "../srcs/libft-complete/ft_printf/ft_printf.h"
 
 #define TO_I32_LITTLE_ENDIAN(x,i) (((uint32_t)(x)[i]) | ((uint32_t)(x)[i+1]<<8) | ((uint32_t)(x)[i+2]<<16) | ((uint32_t)(x)[i+3]<<24))
 #define TO_I32_BIG_ENDIAN(x,i) (((uint32_t)(x)[i + 3]) | ((uint32_t)(x)[i+2]<<8) | ((uint32_t)(x)[i+1]<<16) | ((uint32_t)(x)[i]<<24))
@@ -44,10 +45,10 @@ typedef struct s_source {
 
 typedef struct {
     hashing_type    type;
-    bool            echo_mode;
-    bool            quiet_mode;
-    bool            reverse_format;
-    bool            print_mode;
+    bool            echo_mode; // -p
+    bool            quiet_mode; // -q
+    bool            reverse_format; // -r
+    bool            print_mode; // -s
     bool            read_stdin;
     t_source        *source;
 } hashing_data;

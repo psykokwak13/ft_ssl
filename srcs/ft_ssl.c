@@ -8,33 +8,27 @@ static void output_src_file(hashing_data *data, t_source *node) {
         return ;
 
     if (data->quiet_mode) {
-        if (data->type == MD5_HASH) {
+        if (data->type == MD5_HASH)
             output = ft_ssl_md5(content);
-            printf("%s\n", output);
-        }
-        if (data->type == SHA256_HASH) {
+        if (data->type == SHA256_HASH)
             output = ft_ssl_sha256(content);
-            printf("%s\n", output);
-        }
+        ft_printf("%s\n", output);
     }
     else if (data->reverse_format) {
-        if (data->type == MD5_HASH) {
+        if (data->type == MD5_HASH)
             output = ft_ssl_md5(content);
-            printf("%s %s\n", output, node->value);
-        }
-        if (data->type == SHA256_HASH) {
+        if (data->type == SHA256_HASH)
             output = ft_ssl_sha256(content);
-            printf("%s %s\n", output, node->value);
-        }
+        ft_printf("%s %s\n", output, node->value);
     }
     else {
         if (data->type == MD5_HASH) {
             output = ft_ssl_md5(content);
-            printf("MD5 (%s) = %s\n", node->value, output);
+            ft_printf("MD5 (%s) = %s\n", node->value, output);
         }
         if (data->type == SHA256_HASH) {
             output = ft_ssl_sha256(content);
-            printf("SHA256 (%s) = %s\n", node->value, output);
+            ft_printf("SHA256 (%s) = %s\n", node->value, output);
         }
     }
 
@@ -42,36 +36,24 @@ static void output_src_file(hashing_data *data, t_source *node) {
     free(content);
 }
 
-static void output_src_stdin(hashing_data *data, t_source *type) { // do this at the end for testing etc
+static void output_src_stdin(hashing_data *data, t_source *type) {
     char    *output = NULL;
 
-    if (!handle_stdin(data)) {
-        ft_putstr_fd("stdin : can't access", 2);
-        return ;
-    }
-
     if (data->quiet_mode) {
-        if (data->type == MD5_HASH) {
-            output = ft_ssl_md5(type->value);
-        }
-        if (data->type == SHA256_HASH) {
-            output = ft_ssl_sha256(type->value);
-        }
-    }
-    else if (data->reverse_format) {
-        if (data->type == MD5_HASH) {
-            output = ft_ssl_md5(type->value);
-        }
-        if (data->type == SHA256_HASH) {
-            output = ft_ssl_sha256(type->value);
-        }
+        if (data->type == MD5_HASH) output = ft_ssl_md5(type->value);
+        if (data->type == SHA256_HASH) output = ft_ssl_sha256(type->value);
+        ft_printf("%s\n", output);
     }
     else {
         if (data->type == MD5_HASH) {
             output = ft_ssl_md5(type->value);
+            if (data->echo_mode) ft_printf("MD5 (\"%s\") = %s\n", type->value, output);
+            else ft_printf("MD5 (stdin) = %s\n", output);
         }
         if (data->type == SHA256_HASH) {
             output = ft_ssl_sha256(type->value);
+            if (data->echo_mode) ft_printf("SHA256 (\"%s\") = %s\n", type->value, output);
+            else ft_printf("SHA256 (stdin) = %s\n", output);
         }
     }
     free(output);
@@ -81,33 +63,23 @@ static void output_src_string(hashing_data *data, t_source *node) {
     char    *output = NULL;
 
     if (data->quiet_mode) {
-        if (data->type == MD5_HASH) {
-            output = ft_ssl_md5(node->value);
-            printf("%s\n", output);
-        }
-        if (data->type == SHA256_HASH) {
-            output = ft_ssl_sha256(node->value);
-            printf("%s\n", output);
-        }
+        if (data->type == MD5_HASH) output = ft_ssl_md5(node->value);
+        if (data->type == SHA256_HASH) output = ft_ssl_sha256(node->value);
+        ft_printf("%s\n", output);
     }
     else if (data->reverse_format) {
-        if (data->type == MD5_HASH){
-            output = ft_ssl_md5(node->value);
-            printf("%s \"%s\"\n", output, node->value);
-        }
-        if (data->type == SHA256_HASH) {
-            output = ft_ssl_sha256(node->value);
-            printf("%s \"%s\"\n", output, node->value);
-        }
+        if (data->type == MD5_HASH) output = ft_ssl_md5(node->value);
+        if (data->type == SHA256_HASH) output = ft_ssl_sha256(node->value);
+        ft_printf("%s \"%s\"\n", output, node->value);
     }
     else {
         if (data->type == MD5_HASH) {
             output = ft_ssl_md5(node->value);
-            printf("MD5 (\"%s\") = %s\n", node->value, output);
+            ft_printf("MD5 (\"%s\") = %s\n", node->value, output);
         }
        if (data->type == SHA256_HASH) {
            output = ft_ssl_sha256(node->value);
-            printf("SHA256 (\"%s\") = %s\n", node->value, output);
+           ft_printf("SHA256 (\"%s\") = %s\n", node->value, output);
         }
     }
     free(output);

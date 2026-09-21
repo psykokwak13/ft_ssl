@@ -6,12 +6,12 @@ char    *handle_srcfile(t_source *source) { // a tester
     char    *temp;
 
     if (source->type != SRC_FILE) {
-        printf("'%s' don't contain SRC_FILE\n", source->value);
+        eprintf("'%s' don't contain SRC_FILE\n", source->value);
         return (NULL);
     }
     fd = open(source->value, O_RDONLY);
     if (fd == -1) {
-        printf("%s : No such file or directory\n", source->value);
+        eprintf("%s : No such file or directory\n", source->value);
         return (NULL);
     }
 
@@ -29,11 +29,18 @@ char    *handle_srcfile(t_source *source) { // a tester
     if (byte_read == -1) {
         close(fd);
         free(result);
-        printf("%s : can't read file", source->value);
+        eprintf("%s : can't read file\n", source->value);
         return (NULL);
     }
 
     close(fd);
+
+    if (!ft_strcmp(result, "")) {
+        eprintf("%s : empty file\n", source->value);
+        free(result);
+        return (NULL);
+    }
+
 
     return (result);
 }
@@ -53,7 +60,7 @@ bool    handle_stdin(hashing_data *data) { // a tester
     }
 
     if (bytes_read == -1) {
-        eprintf("Error : can't read stdin\n");
+        eprintf("error : can't read stdin\n");
         return (false);
     }
 
