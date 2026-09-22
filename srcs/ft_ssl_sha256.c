@@ -58,6 +58,11 @@ char    *ft_ssl_sha256(char *str) {
         uint32_t        ch;
         uint32_t        maj;
 
+        if (!w) {
+            free(message);
+            return ("can't malloc get_words");
+        }
+
         for (int i = 16; i < 64; i++) {
             s0 = rotr(w[i - 15], 7) ^ rotr(w[i - 15], 18) ^ SHR(w[i - 15], 3);
             s1 = rotr(w[i - 2], 17) ^ rotr(w[i - 2], 19) ^ SHR(w[i - 2], 10);

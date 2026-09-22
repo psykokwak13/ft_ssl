@@ -51,12 +51,13 @@ static void output_src_string(hashing_data *data, t_source *node) {
 
     output = get_algorithm_result(data->type, node->value);
 
+    node->value[ft_strlen(node->value)] = '\0';
     if (data->quiet_mode)
         ft_printf("%s\n", output);
     else if (data->reverse_format)
         ft_printf("%s \"%s\"\n", output, node->value);
     else
-        ft_printf("%s (\"%s\") = %s\n", get_hashing_type(data->type), node->value, output);
+        ft_printf("(\"%s\") = %s\n", node->value, output);
 
     free(output);
 }

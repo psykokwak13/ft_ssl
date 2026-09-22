@@ -43,24 +43,17 @@ char    *handle_srcfile(t_source *source) {
         return (NULL);
     }
 
-    if (!ft_strcmp(result, "")) {
-        eprintf("%s : empty file\n", source->value);
-        free(result);
-        return (NULL);
-    }
-
-
     return (result);
 }
 
-bool    handle_stdin(hashing_data *data) { // a tester
+bool    handle_stdin(hashing_data *data) {
     char    buffer[1024];
     ssize_t bytes_read = 1;
     char    *result = ft_strdup("");
     char    *temp = NULL;
 
     while (bytes_read > 0) {
-        bytes_read = read(0, &buffer, 1024);
+        bytes_read = read(0, &buffer, 1023);
         buffer[bytes_read] = '\0';
         temp = result;
         result = ft_strjoin(result, buffer);
@@ -92,6 +85,10 @@ void    add_source(hashing_data *data, t_src_type type, char *str) {
     t_source    *new = malloc(sizeof(t_source));
     t_source    *root = data->source;
 
+    if (!new) {
+        ft_printf("error : malloc add_source()\n");
+        return ;
+    }
     new->type = type;
     new->value = str;
     new->next = NULL;

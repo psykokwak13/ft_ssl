@@ -54,6 +54,11 @@ char    *ft_ssl_md5(char *str) {
         uint32_t    f;
         int         g;
 
+        if (!w) {
+            free(message);
+            return ("can't malloc get_words");
+        }
+
         for (int i = 0; i < 64; i++) {
             if (i <= 15) {
                 f = F(haching_var.b, haching_var.c ,haching_var.d);

@@ -49,7 +49,6 @@ typedef struct {
     bool            quiet_mode; // -q
     bool            reverse_format; // -r
     bool            print_mode; // -s
-    bool            read_stdin;
     t_source        *source;
 } hashing_data;
 
