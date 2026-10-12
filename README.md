@@ -99,5 +99,9 @@ MD5 ("pity those that aren't following baerista on spotify.") = a3c990a1964705d9
 SHA256 ("42 is nice") = b7e44c7a40c5f80139f0a50f3650fb2bd8d00b0d24667c4c2ca32c88e13b758f
 ```
 
+## useful website
+
+- https://www.blindtextgenerator.com/lorem-ipsum -> to test input
+
 ## Author
 egatien

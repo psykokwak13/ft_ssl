@@ -1,6 +1,6 @@
-#ifndef FT_SSL_MD5_H
+#pragma once
 
-#define FT_SSL_MD5_H
+#define CMP_MODE = 0 //  turn to 1 to compare between openssl
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +31,7 @@ typedef enum {
     SHA256_HASH
 } hashing_type;
 
-typedef enum e_src_type {
+typedef enum src_type {
     SRC_STDIN,
     SRC_STRING,
     SRC_FILE
@@ -40,6 +40,7 @@ typedef enum e_src_type {
 typedef struct s_source {
     t_src_type          type;
     char                *value;
+    size_t              size_of_value;
     struct s_source     *next;
 } t_source;
 
@@ -53,8 +54,8 @@ typedef struct {
 } hashing_data;
 
 void            ft_ssl(hashing_data *data); // handle output option and redirect to md5 or sha256
-char            *ft_ssl_md5(char *str); // main function for hashing string into md5
-char            *ft_ssl_sha256(char *data);
+char            *ft_ssl_md5(char *str, size_t size_str); // main function for hashing string into md5
+char            *ft_ssl_sha256(char *str, size_t size_str); // // main function for hashing string into sha256
 void            get_arr_debug(char **arr);
 
 // md5/sha256 utils
@@ -66,10 +67,8 @@ uint32_t        rotr(uint32_t x, int s);
 // utils
 void            get_arr_debug(char **arr);
 void            print_data_statut(hashing_data data);
-void            add_source(hashing_data *data, t_src_type type, char *str);
+void            add_source(hashing_data *data, t_src_type type, char *str, size_t size_str);
 void            free_source(t_source *source);
 bool            handle_stdin(hashing_data *data);
 char            *handle_srcfile(t_source *source);
 char            *get_hashing_type(hashing_type type);
-
-#endif

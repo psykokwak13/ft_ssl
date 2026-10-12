@@ -30,9 +30,9 @@ char    *sha256_to_hex(sha256_context value)
     return (result);
 }
 
-char    *ft_ssl_sha256(char *str) {
+char    *ft_ssl_sha256(char *str, size_t size_str) {
     size_t          len;
-    unsigned char   *message = md5_sha256_pad(str, ft_strlen(str), &len, SHA256_HASH);
+    unsigned char   *message = md5_sha256_pad(str, size_str, &len, SHA256_HASH);
     sha256_context  initial_value = {
         0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
         0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19

@@ -28,9 +28,9 @@ char    *md5_to_hex(uint32_t h0, uint32_t h1, uint32_t h2, uint32_t h3)
     return (result);
 }
 
-char    *ft_ssl_md5(char *str) {
+char    *ft_ssl_md5(char *str, size_t size_str) {
     size_t          len;
-    unsigned char   *message = md5_sha256_pad(str, ft_strlen(str), &len, MD5_HASH);
+    unsigned char   *message = md5_sha256_pad(str, size_str, &len, MD5_HASH);
 
     if (!message) return (NULL);
 
@@ -39,16 +39,16 @@ char    *ft_ssl_md5(char *str) {
     uint32_t     h2 = 0x98badcfe;
     uint32_t     h3 = 0x10325476;
     uint32_t     k[64];
-    int r[64] = {7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22, 
-                 5, 9, 14, 20,  5, 9, 14, 20,  5, 9, 14, 20,  5, 9, 14, 20,
-                 4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,
-                 6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21};
+    int r[64] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 
+                 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
+                 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
+                 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21};
 
     for (int i = 0; i < 64; i++) {
         k[i] = (uint32_t)(fabs(sin(i + 1.0)) * 4294967296.0);
     }
 
-    for (int nb_bloc = 0; nb_bloc < len; nb_bloc += 64) { // parcourir les blocs
+    for (int nb_bloc = 0; nb_bloc < len; nb_bloc += 64) {
         uint32_t    *w = get_words(message, nb_bloc, MD5_HASH);
         md5_context haching_var = {h0, h1, h2, h3};
         uint32_t    f;

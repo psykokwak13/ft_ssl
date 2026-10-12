@@ -1,11 +1,11 @@
 #include "../includes/ft_ssl.h"
 
-static char *get_algorithm_result(hashing_type type, char *str) {
+static char *get_algorithm_result(hashing_type type, char *str, size_t len) {
     switch (type) {
         case MD5_HASH :
-            return (ft_ssl_md5(str));
+            return (ft_ssl_md5(str, len));
         case SHA256_HASH :
-            return (ft_ssl_sha256(str));
+            return (ft_ssl_sha256(str, len));
         };
 }
 
@@ -16,7 +16,7 @@ static void output_src_file(hashing_data *data, t_source *node) {
     if (!content)
         return ;
 
-    output = get_algorithm_result(data->type, content);
+    output = get_algorithm_result(data->type, content, node->size_of_value);
 
     if (data->quiet_mode)
         ft_printf("%s\n", output);
@@ -29,18 +29,18 @@ static void output_src_file(hashing_data *data, t_source *node) {
     free(content);
 }
 
-static void output_src_stdin(hashing_data *data, t_source *type) {
+static void output_src_stdin(hashing_data *data, t_source *node) {
     char    *output = NULL;
 
-    output = get_algorithm_result(data->type, type->value);
+    output = get_algorithm_result(data->type, node->value, node->size_of_value);
 
     if (data->quiet_mode) {
         if (data->echo_mode)
-            printf("%s\n", type->value);
+            printf("%s\n", node->value);
         ft_printf("%s\n", output);
     }
     else {
-        if (data->echo_mode) ft_printf("%s (\"%s\") = %s\n", get_hashing_type(data->type), type->value, output);
+        if (data->echo_mode) ft_printf("%s (\"%s\") = %s\n", get_hashing_type(data->type), node->value, output);
         else ft_printf("%s (stdin) = %s\n", get_hashing_type(data->type), output);
     }
     free(output);
@@ -49,7 +49,7 @@ static void output_src_stdin(hashing_data *data, t_source *type) {
 static void output_src_string(hashing_data *data, t_source *node) {
     char    *output = NULL;
 
-    output = get_algorithm_result(data->type, node->value);
+    output = get_algorithm_result(data->type, node->value, node->size_of_value);
 
     node->value[ft_strlen(node->value)] = '\0';
     if (data->quiet_mode)

@@ -49,11 +49,12 @@ bool    get_flags(char **arr, int size, hashing_data *data) {
             eprintf("error : '-s' command without string\n");
             return (false);
         }
-        add_source(data, SRC_STRING, ft_strdup(arr[i++]));
+        add_source(data, SRC_STRING, ft_strdup(arr[i]), ft_strlen(arr[i]));
+        i++;
     }
 
     for (; arr[i] ;i++)
-        add_source(data, SRC_FILE, ft_strdup(arr[i]));
+        add_source(data, SRC_FILE, ft_strdup(arr[i]), 0);
 
     return (true);
 }
